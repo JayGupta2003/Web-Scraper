@@ -1,7 +1,13 @@
+#encoding - chcp 65001
 import bs4 as bs
 import urllib.request
 
-source = urllib.request.urlopen('https://pythonprogramming.net/parsememcparseface/').read()
+link = input("Enter Your Link:")
+source = urllib.request.urlopen(link).read()
 soup = bs.BeautifulSoup(source,'lxml')
 
-print(soup.encode())
+name = soup.find(id='productTitle').get_text()
+price = soup.find(id='priceblock_ourprice').get_text()
+price_beaut = float(price[2:].replace(',',''))
+
+print(name.strip(),':',price_beaut)
